@@ -1,9 +1,9 @@
-var app = angular.module('clienteModule',[]);
-app.controller('clienteControl',function($scope,$http) {
+var app = angular.module('clienteModule', []);
+app.controller('clienteControl', function ($scope) {
 
     var url = 'http://localhost:8080/clientes';
 
-    $scope.pesquisar = function() {
+    $scope.pesquisar = function () {
         $http.get(url).then(function (response) {
             $scope.clientes = response.data;
         }, function (error) {
@@ -12,9 +12,9 @@ app.controller('clienteControl',function($scope,$http) {
         });
     }
 
-    $scope.salvar = function() {
-        if (typeof $scope.cliente.codigo == 'undefined') {            
-            $http.post(url,$scope.cliente).then(function (response) {
+    $scope.salvar = function () {
+        if (typeof $scope.cliente.codigo == 'undefined') {
+            $http.post(url, $scope.cliente).then(function (response) {
                 $scope.clientes.push(response.data);
                 $scope.novo();
             }, function (error) {
@@ -22,28 +22,28 @@ app.controller('clienteControl',function($scope,$http) {
                 console.log(error);
             });
         } else {
-            $http.put(url,$scope.cliente).then(function () {
+            $http.put(url, $scope.cliente).then(function () {
                 $scope.pesquisar();
                 $scope.novo();
             }, function (error) {
                 alert(error);
                 console.log(error);
             });
-        } 
+        }
     }
 
-    $scope.excluir = function() {
+    $scope.excluir = function () {
         if (typeof $scope.cliente.codigo == 'undefined') {
             alert('Escolha um cliente');
         } else {
-            urlExcluir = url+"/"+$scope.cliente.codigo;
+            urlExcluir = url + "/" + $scope.cliente.codigo;
             $http.delete(urlExcluir).then(function () {
                 $scope.pesquisar();
                 $scope.novo();
             }, function (error) {
                 alert(error);
                 console.log(error);
-            }); 
+            });
         }
     }
 
@@ -51,33 +51,29 @@ app.controller('clienteControl',function($scope,$http) {
     /*$scope.clientes = [
                 {'codigo':'1',
                  'nome':'Carlos',
-                 'cargo':'Professor',
-                 'endereco':'Rua teste, 65, Jardim das Palmeiras',
-                'cidade':'Uberlandia',
-                'cep':'38400-000',
-                'pais':'Brasil',
-                'telefone':'34944423402',
-                'fax':'343434344'},
+                 'email':'carlos@iftm.edu.br',
+                 'cpfcnpj':'111.111.111-11'},
                 {'codigo':'2',
                  'nome':'Martin Fowler',
-                 'cargo':'CEO',
-                 'endereco':'40, street view, google',
-                'cidade':'Miami',
-                'cep':'30111',
-                'pais':'USA',
-                'telefone':'55100912333',
-                'fax':'232323'},            
-            ]
-      */
-    $scope.novo = function() {
-        $scope.cliente = {};
-    }        
+                 'email':'martin@gmail.com',
+                 'cpfcnpj':'222.222.222-22'},
+    ]*/
 
-    $scope.seleciona = function(cliente) {
-        $scope.cliente = cliente;
+    $scope.novo = function () {
+        $scope.cliente = {};
     }
 
-    $scope.pesquisar();
-    $scope.novo();
+    $scope.salvar = function (cliente) {
+        $scope.clientes.push($scope, cliente);
+        $scope.novo();
+    }
 
+    $scope.excuir = function () {
+        $scope.clientes.splice($scope.clientes.indexOf($scope.cliente), 1);
+        $scope.novo();
+    }
+
+    $scope.seleciona = function (cliente) {
+        $scope.cliente = cliente;
+    }
 });

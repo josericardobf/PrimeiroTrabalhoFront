@@ -1,23 +1,23 @@
-<html lang="en" ng-app="clienteModule">
+<html lang="en" ng-app="estadoModule">
 
 <head>
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<title>Sistema Ecommerce</title>
 </head>
 
-<body ng-controller="clienteControl">
+<body ng-controller="estadoControl">
 	<script src="js/jquery-3.3.1.slim.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/angular.js"></script>
-	<script src="control/clienteControl.js"></script>
+	<script src="control/estadoControl.js"></script>
 	<div ng-include src="'menu.html'"></div>
 
 	<div class="card border-secondary mb-3">
-		<div class="card-header">Cadastro de Clientes</div>
+		<div class="card-header">Cadastro de Estados</div>
 	</div>
 
-	<ul class="nav nav-tabs" id="clienteTab" role="tablist">
+	<ul class="nav nav-tabs" id="estadoTab" role="tablist">
 		<li class="nav-item">
 			<a class="nav-link active" id="cadastro-tab" data-toggle="tab" href="#cadastro" role="tab"
 				aria-controls="tabCadastro" aria-selected="true">Cadastro</a>
@@ -27,7 +27,7 @@
 				aria-selected="false">Dados</a>
 		</li>
 	</ul>
-	<div class="tab-content" id="clienteTabContent">
+	<div class="tab-content" id="estadoTabContent">
 		<div class="tab-pane fade show active" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
 			<br>
 			<button type="button" ng-click="novo()" class="btn btn-primary">Novo</button>
@@ -38,32 +38,16 @@
 			<form class="was-validated form-row">
 				<div class="col-md-1 mb-3">
 					<label for="txtCodigo">C&oacute;digo</label>
-					<input type="text" ng-model="cliente.codigo" class="form-control" disabled id="txtCodigo">									
+					<input type="text" ng-model="estado.codigo" class="form-control" disabled id="txtCodigo">									
 				</div>
 			
 				<div class="col-md-4 mb-3">
 					<label for="txtNome">Nome</label>
-					<input type="text" ng-model="cliente.nome" class="form-control is-valid" id="txtNome" required>
+					<input type="text" ng-model="estado.nome" class="form-control is-valid" id="txtNome" required>
 					<div class="invalid-feedback">
 						Digite o nome.
 					</div>				
-				</div>
-
-				<div class="col-md-5 mb-3">
-					<label for="txtEmail">Email</label>
-					<input type="email" ng-model="cliente.email" class="form-control is-valid" id="txtEmail" required>
-					<div class="invalid-feedback">
-						Digite o email.			
-					</div>				
-				</div>
-
-				<div class="col-md-5 mb-3">
-					<label for="txtCpfCnpj">CPF/CNPJ</label>
-					<input type="text" ng-model="cliente.cpfcnpj" class="form-control is-valid" id="txtCpfCnpj" required>
-					<div class="invalid-feedback">
-						Digite o CPF/CNPJ.			
-					</div>				
-				</div>		
+				</div>	
 			</form>
 		</div>
 		<div class="tab-pane fade" id="dados" role="tabDados" aria-labelledby="dados-tab">
@@ -75,21 +59,17 @@
 								<tr>
 									<th>C&oacute;digo</th>
 									<th>Nome</th>
-									<th>Email</th>
-									<th>CPF/CNPJ</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="clienteTabela in clientes | filter:criterio"
-										ng-click="seleciona(clienteTabela)">
-									<td>{{clienteTabela.codigo}}</td>	
-									<td>{{clienteTabela.nome}}</td>	
-									<td>{{clienteTabela.email}}</td>	
-									<td>{{clienteTabela.cpfcnpj}}</td>
+								<tr ng-repeat="estadoTabela in estados | filter:criterio"
+										ng-click="seleciona(estadoTabela)">
+									<td>{{estadoTabela.codigo}}</td>	
+									<td>{{estadoTabela.nome}}</td>
 								</tr>
 							</tbody>		
 				</table>
-				<span ng-show="(clientes | filter: criterio).length == 0">Infelizmente 
+				<span ng-show="(estados | filter: criterio).length == 0">Infelizmente 
 					n&atilde;o temos o que voc&ecirc; est&aacute; procurando</span>
 			</div>
 
